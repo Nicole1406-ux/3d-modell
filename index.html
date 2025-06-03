@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000; /* Optional: dunkler Hintergrund für besseren Kontrast */
+    }
+
+    model-viewer {
+      width: 80vw;
+      height: 80vh;
+    }
+  </style>
 </head>
 <body>
-<model-viewer src="plane.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1">
+  <model-viewer
+    src="plane.glb"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    tone-mapping="neutral"
+    poster="poster.webp"
+    shadow-intensity="1"
+  >
     <div class="progress-bar hide" slot="progress-bar">
-        <div class="update-bar"></div>
+      <div class="update-bar"></div>
     </div>
-</model-viewer>
+  </model-viewer>
 </body>
 </html>
