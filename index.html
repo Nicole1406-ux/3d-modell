@@ -76,6 +76,9 @@
       poster="poster.webp"
       shadow-intensity="1"
     >
+      <h2>Bitte klicke auf den Button</h2>
+<button id="myButton">Klick mich</button>
+      
       <button
         class="hotspot"
         slot="hotspot-hand"
@@ -88,6 +91,11 @@
 
     <!-- Script to switch models -->
     <script>
+
+       document.getElementById("myButton").addEventListener("click", function() {
+    // Sende Nachricht an Storyline
+    parent.postMessage({ type: "button_clicked" }, "*");
+  });
       let currentModel = 0;
       const models = ['plane.glb', 'bulldozer.glb']; // Liste der Modelle
 
