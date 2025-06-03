@@ -1,109 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      type="module"
-      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
-    ></script>
-    <title>Portfolio</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: sans-serif;
-      }
-
-      model-viewer {
-        width: 100vw;
-        height: 100vh;
-        display: block;
-      }
-
-      .hotspot {
-        display: block;
-        width: 20px;
-        height: 20px;
-        border-radius: 10px;
-        border: none;
-        background-color: blue;
-        box-sizing: border-box;
-        pointer-events: none;
-      }
-
-      .hotspot[slot="hotspot-hand"] {
-        --min-hotspot-opacity: 0;
-        background-color: red;
-      }
-
-      .annotation {
-        background-color: #d0cece;
-        position: absolute;
-        transform: translate(10px, 10px);
-        border-radius: 10px;
-        padding: 10px;
-      }
-
-      :not(:defined) > * {
-        display: none;
-      }
-
-      .switch-button {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        z-index: 10;
-        padding: 10px 20px;
-        background-color: white;
-        border: 1px solid black;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Button to switch models -->
-    <button class="switch-button" onclick="switchModel()">Anderes Modell laden</button>
-
-    <!-- 3D Model Viewer -->
-    <model-viewer
-      id="viewer"
-      src="plane.glb"
-      ar
-      ar-modes="webxr scene-viewer quick-look"
-      camera-controls
-      tone-mapping="neutral"
-      poster="poster.webp"
-      shadow-intensity="1"
-    >
-      <h2>Bitte klicke auf den Button</h2>
-<button id="myButton">Klick mich</button>
-      
-      <button
-        class="hotspot"
-        slot="hotspot-hand"
-        data-position="0.03 -0.03 0.523"
-        data-normal="0 0 0"
-      >
-        <div class="annotation">Türen: 800 <br />(Hauptzone)</div>
-      </button>
-    </model-viewer>
-
-    <!-- Script to switch models -->
-    <script>
-
-       document.getElementById("myButton").addEventListener("click", function() {
-    // Sende Nachricht an Storyline
-    parent.postMessage({ type: "button_clicked" }, "*");
-  });
-      let currentModel = 0;
-      const models = ['plane.glb', 'bulldozer.glb']; // Liste der Modelle
-
-      function switchModel() {
-        currentModel = (currentModel + 1) % models.length;
-        const viewer = document.getElementById('viewer');
-        viewer.src = models[currentModel];
-      }
-    </script>
-  </body>
+<head>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+<model-viewer src="file-1571059202690.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1">
+    <div class="progress-bar hide" slot="progress-bar">
+        <div class="update-bar"></div>
+    </div>
+</model-viewer>
+</body>
 </html>
