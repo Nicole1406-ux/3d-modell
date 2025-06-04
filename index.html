@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,49 +8,39 @@
     html, body {
       margin: 0;
       height: 100%;
+      width: 100%;
+      overflow: hidden;
       background-color: #f0f0f0;
     }
-
     body {
       display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    model-viewer {
-      width: 90vw;
-      height: 90vh;
-      max-width: 1200px;
-      max-height: 800px;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
       background-color: #fff;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
-
+    model-viewer {
+      flex: 1 1 auto; /* nimmt den ganzen verfügbaren Platz ein */
+      width: 100vw;
+      height: 100vh;
+      background-color: #fff;
+      /* keine max-width/max-height mehr, Vollbild */
+      border-radius: 0;
+      box-shadow: none;
+    }
     .hotspot {
-      display: block;
+      display: none;
       width: 20px;
       height: 20px;
       border-radius: 10px;
       border: none;
-      background-color: blue;
+      background-color: #0D2D5C;
       box-sizing: border-box;
       pointer-events: none;
     }
-
-    .hotspot[slot="hotspot-hand"] {
-      --min-hotspot-opacity: 0;
-      background-color: red;
-    }
-
-    .hotspot[slot="hotspot-foot"]:not([data-visible]) {
-      background-color: transparent;
-      border: 3px solid blue;
-    }
-
     .HotspotAnnotation {
-      background-color: #888888;
-      color: #fff;
+      background-color: #F2F2F2;
+      color: #0D2D5C;
       position: absolute;
       transform: translate(10px, 10px);
       border-radius: 10px;
@@ -58,65 +48,132 @@
       font-family: sans-serif;
       font-size: 14px;
     }
-
-    :not(:defined)>* {
+    .controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      background-color: rgba(15, 15, 15, 0.8);
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      z-index: 100;
+    }
+    button.nav-btn {
+      margin: 0 15px;
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #0D2D5C;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button.nav-btn:hover:not(:disabled) {
+      background-color: #154a9c;
+    }
+    button.nav-btn:disabled {
+      background-color: #666666;
+      cursor: default;
+    }
+    :not(:defined) > * {
       display: none;
     }
   </style>
 </head>
 <body>
-
   <model-viewer 
-    src="plane_300.glb" 
+    id="viewer"
+    src="plane_blue.glb" 
     ar 
     ar-modes="scene-viewer webxr quick-look" 
     camera-controls 
     tone-mapping="neutral" 
-    poster="poster.webp" 
-    shadow-intensity="1" 
-    camera-target="0m -0.0246m 0m">
-    
-    <button class="hotspot" slot="hotspot-2" data-position="0.00035m -0.00042m 0.46410m" data-normal="0.10579m 0.99438m 0m" data-visibility-attribute="visible">
+    shadow-intensity="1" >
+    <!-- Hotspots mit Kamera-Orbit & Kamera-Target -->
+    <button class="hotspot" slot="hotspot-2" data-position="0.00035m -0.00042m 0.46410m" data-normal="0.10579m 0.99438m 0m"
+      data-orbit="00deg 80deg 0.8m" data-target="0m 0m 0.4m">
       <div class="HotspotAnnotation">100 Rumpf oberer Teil</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-3" data-position="0.00057m -0.06497m 0.46389m" data-normal="0.18979m -0.98182m 0m" data-visibility-attribute="visible">
+    <button class="hotspot" slot="hotspot-3" data-position="0.00057m -0.06497m 0.46389m" data-normal="0.18979m -0.98182m 0m"
+     data-orbit="-90deg 120deg 0.8m" data-target="0m 0m 0.4m">
       <div class="HotspotAnnotation">100 Rumpf unterer Teil</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-4" data-position="-0.00249m 0.04383m 0.05703m" data-normal="-0.99999m -0.00167m -0.00246m" data-visibility-attribute="visible">
+    <button class="hotspot" slot="hotspot-4" data-position="-0.00249m 0.04383m 0.05703m" data-normal="-0.99999m -0.00167m -0.00246m"
+      data-orbit="-30deg 80deg 0m" data-target="0.15m 0m 0m">
       <div class="HotspotAnnotation">300 Stabilisatoren</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-6" data-position="-0.08147m -0.07260m 0.40743m" data-normal="-0.05637m 0.06839m 0.99606m" data-visibility-attribute="visible">
+    <button class="hotspot" slot="hotspot-6" data-position="-0.08147m -0.07260m 0.40743m" data-normal="-0.05637m 0.06839m 0.99606m"
+      data-orbit="-20deg 110deg 0m" data-target="0m 0.02m 0.3m">
       <div class="HotspotAnnotation">400 Triebwerk und Gondeln</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-7" data-position="0.20898m -0.03716m 0.29570m" data-normal="-0.06937m 0.99707m -0.03221m" data-visibility-attribute="visible">
+    <button class="hotspot" slot="hotspot-7" data-position="0.20898m -0.03716m 0.29570m" data-normal="-0.06937m 0.99707m -0.03221m"
+      data-orbit="70deg 70deg 1.9m" data-target="0.2m 0m 0.2m">
       <div class="HotspotAnnotation">500 linker Flügel</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-8" data-position="-0.19969m -0.03761m 0.30194m" data-normal="0.06926m 0.99709m -0.03179m" data-visibility-attribute="visible">
+    <button class="hotspot" slot="hotspot-8" data-position="-0.19969m -0.03761m 0.30194m" data-normal="0.06926m 0.99709m -0.03179m"
+      data-orbit="-70deg 70deg 1.9m" data-target="-0.2m 0m 0.2m">
       <div class="HotspotAnnotation">600 rechter Flügel</div>
     </button>
-
-    <button class="hotspot" slot="hotspot-9" data-position="-0.00017m -0.08492m 0.51555m" data-normal="0m 0.15659m 0.98766m" data-visibility-attribute="visible">
-      <div class="HotspotAnnotation">700 Fahrgestell</div>
-    </button>
-
-    <button class="hotspot" slot="hotspot-10" data-position="-0.02747m -0.02886m 0.52172m" data-normal="-0.99357m 0.09789m 0.05675m" data-visibility-attribute="visible">
-      <div class="HotspotAnnotation">800 Türen</div>
-    </button>
-
-    <button class="hotspot" slot="hotspot-11" data-position="-0.02795m -0.02538m 0.33323m" data-normal="-0.96224m 0.27216m 0.00259m" data-visibility-attribute="visible">
-      <div class="HotspotAnnotation">800 Türen</div>
-    </button>
-
-    <button class="hotspot" slot="hotspot-14" data-position="-0.02549m -0.02459m 0.12615m" data-normal="-0.99289m 0.09693m -0.06901m" data-visibility-attribute="visible">
-      <div class="HotspotAnnotation">800 Türen</div>
-    </button>
-
   </model-viewer>
+
+  <div class="controls">
+    <button class="nav-btn" id="prev">Zurück</button>
+    <button class="nav-btn" id="next">Weiter</button>
+  </div>
+
+  <script>
+    const modelViewer = document.querySelector('#viewer');
+    const hotspots = Array.from(document.querySelectorAll('.hotspot'));
+    let currentIndex = 0;
+
+    function updateHotspotVisibility() {
+      hotspots.forEach((hotspot, index) => {
+        hotspot.style.display = (index === currentIndex) ? 'block' : 'none';
+      });
+
+      document.getElementById('prev').disabled = currentIndex === 0;
+      document.getElementById('next').disabled = currentIndex === hotspots.length - 1;
+    }
+
+    async function animateToHotspot(index) {
+      const hotspot = hotspots[index];
+      const orbit = hotspot.getAttribute('data-orbit');
+      const target = hotspot.getAttribute('data-target');
+
+      if (orbit && target) {
+        modelViewer.cameraOrbit = orbit;
+        modelViewer.cameraTarget = target;
+        await modelViewer.animateCameraToGoal();
+      }
+    }
+
+    document.getElementById('prev').addEventListener('click', async () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateHotspotVisibility();
+        await animateToHotspot(currentIndex);
+      }
+    });
+
+    document.getElementById('next').addEventListener('click', async () => {
+      if (currentIndex < hotspots.length - 1) {
+        currentIndex++;
+        updateHotspotVisibility();
+        await animateToHotspot(currentIndex);
+      }
+    });
+
+    // Initial anzeigen und Kamera animieren
+    updateHotspotVisibility();
+    animateToHotspot(currentIndex);
+  </script>
 
 </body>
 </html>
