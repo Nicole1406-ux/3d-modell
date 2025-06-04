@@ -7,6 +7,43 @@
   
 </head>
 <body>
+
+  <style>
+                  .hotspot {
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    border: none;
+                    background-color: blue;
+                    box-sizing: border-box;
+                    pointer-events: none;
+                  }
+
+                  .hotspot[slot="hotspot-hand"] {
+                    --min-hotspot-opacity: 0;
+                    background-color: red;
+                  }
+
+                  .hotspot[slot="hotspot-foot"]:not([data-visible]) {
+                    background-color: transparent;
+                    border: 3px solid blue;
+                  }
+
+                  .annotation {
+                    background-color: #888888;
+                    position: absolute;
+                    transform: translate(10px, 10px);
+                    border-radius: 10px;
+                    padding: 10px;
+                  }
+
+                  /* This keeps child nodes hidden while the element loads */
+                  :not(:defined)>* {
+                    display: none;
+                  }
+                </style>
+  
  <model-viewer src="plane_300.glb" ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" camera-target="0m -0.0246m 0m">
     <button class="Hotspot" slot="hotspot-2" data-position="0.00034923636303218087m -0.00041633005913708024m 0.4641032426455977m" data-normal="0.10579658218703929m 0.9943877931659968m 0m" data-visibility-attribute="visible">
         <div class="HotspotAnnotation">100 Rumpf oberer Teil</div>
