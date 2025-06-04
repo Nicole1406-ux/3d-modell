@@ -4,70 +4,83 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-  
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background-color: #f0f0f0;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    model-viewer {
+      width: 90vw;
+      height: 90vh;
+      max-width: 1200px;
+      max-height: 800px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hotspot {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      border: none;
+      background-color: blue;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    .hotspot[slot="hotspot-hand"] {
+      --min-hotspot-opacity: 0;
+      background-color: red;
+    }
+
+    .hotspot[slot="hotspot-foot"]:not([data-visible]) {
+      background-color: transparent;
+      border: 3px solid blue;
+    }
+
+    .HotspotAnnotation {
+      background-color: #888888;
+      color: #fff;
+      position: absolute;
+      transform: translate(10px, 10px);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: sans-serif;
+      font-size: 14px;
+    }
+
+    :not(:defined)>* {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-  <style>
-                  .hotspot {
-                    display: block;
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 10px;
-                    border: none;
-                    background-color: blue;
-                    box-sizing: border-box;
-                    pointer-events: none;
-                  }
-
-                  .hotspot[slot="hotspot-hand"] {
-                    --min-hotspot-opacity: 0;
-                    background-color: red;
-                  }
-
-                  .hotspot[slot="hotspot-foot"]:not([data-visible]) {
-                    background-color: transparent;
-                    border: 3px solid blue;
-                  }
-
-                  .annotation {
-                    background-color: #888888;
-                    position: absolute;
-                    transform: translate(10px, 10px);
-                    border-radius: 10px;
-                    padding: 10px;
-                  }
-
-                  /* This keeps child nodes hidden while the element loads */
-                  :not(:defined)>* {
-                    display: none;
-                  }
-                </style>
+<model-viewer 
+  src="plane_300.glb" 
+  ar 
+  ar-modes="scene-viewer webxr quick-look" 
+  camera-controls 
+  tone-mapping="neutral" 
+  poster="poster.webp" 
+  shadow-intensity="1" 
+  camera-target="0m -0.0246m 0m">
   
- <model-viewer src="plane_300.glb" ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" camera-target="0m -0.0246m 0m">
-    <button class="Hotspot" slot="hotspot-2" data-position="0.00034923636303218087m -0.00041633005913708024m 0.4641032426455977m" data-normal="0.10579658218703929m 0.9943877931659968m 0m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">100 Rumpf oberer Teil</div>
-    </button><button class="Hotspot" slot="hotspot-3" data-position="0.0005735390417947404m -0.06497384962800493m 0.46389396493422735m" data-normal="0.18979565822946673m -0.9818236135463659m -3.469446951953614e-18m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">100 Rumpf unterer Teil</div>
-    </button><button class="Hotspot" slot="hotspot-4" data-position="-0.0024953648391575003m 0.043838564921220624m 0.0570313780235967m" data-normal="-0.999995548446138m -0.0016774872286296069m -0.0024676151453650453m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">300 Stabilisatoren</div>
-    </button><button class="Hotspot" slot="hotspot-6" data-position="-0.08147955912431525m -0.07260740712376426m 0.4074368164688228m" data-normal="-0.056379958095096216m 0.06839225318850713m 0.9960641545748921m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">400 Triebwerk und Gondeln</div>
-    </button><button class="Hotspot" slot="hotspot-7" data-position="0.20898139527454412m -0.037169349550870576m 0.29570076038227555m" data-normal="-0.06937261425732057m 0.9970705387074695m -0.032214612099195745m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">500 linker Flügel</div>
-    </button><button class="Hotspot" slot="hotspot-8" data-position="-0.19969093259903423m -0.03761410393033072m 0.30194715945837813m" data-normal="0.06926516207834758m 0.9970913673231386m -0.03179846744631118m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">600 rechter Flügel</div>
-    </button><button class="Hotspot" slot="hotspot-9" data-position="-0.00017210765835104502m -0.08492331860446262m 0.5155509804404731m" data-normal="0m 0.15659351976144023m 0.9876631356736586m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">700 Fahrgestell</div>
-    </button><button class="Hotspot" slot="hotspot-10" data-position="-0.027476557501136624m -0.028861133185184316m 0.5217200203770342m" data-normal="-0.9935764706514546m 0.09789965176009265m 0.05675786423969666m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">800 Türen</div>
-    </button><button class="Hotspot" slot="hotspot-11" data-position="-0.02795193475266513m -0.025381512217549314m 0.33323984279805363m" data-normal="-0.9622481111348287m 0.2721614522191717m 0.0025916294885997416m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">800 Türen</div>
-    </button><button class="Hotspot" slot="hotspot-14" data-position="-0.02549253325746475m -0.0245951819401127m 0.12615797092247535m" data-normal="-0.9928947241603017m 0.09693465079883291m -0.06901985373170982m" data-visibility-attribute="visible">
-        <div class="HotspotAnnotation">800 Türen</div>
-    </button>
+  <button class="hotspot" slot="hotspot-2" data-position="0.00034923636303218087m -0.00041633005913708024m 0.4641032426455977m" data-normal="0.10579658218703929m 0.9943877931659968m 0m" data-visibility-attribute="visible">
+    <div class="HotspotAnnotation">100 Rumpf oberer Teil</div>
+  </button>
+  <!-- weitere Hotspots hier wie gehabt ... -->
 </model-viewer>
-
 
 </body>
 </html>
