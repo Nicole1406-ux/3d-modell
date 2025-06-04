@@ -48,17 +48,28 @@
 
   <button onclick="switchModel()">Modell wechseln</button>
 
-  <!-- Optional: preload second model -->
+  <!-- Preload second model -->
   <link rel="preload" href="plane_300.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
 
   <script>
     const viewer = document.getElementById('viewer');
     const modelA = 'plane.glb';
     const modelB = 'plane_300.glb';
-
     let isModelA = true;
 
     function switchModel() {
+      // Aktuelle Kameraeinstellungen speichern
+      const cameraOrbit = viewer.getCameraOrbit();
+      const fieldOfView = viewer.getFieldOfView();
+
+      // Nach dem Laden des neuen Modells Kamera zurücksetzen
+      viewer.addEventListener('load', function restoreCameraOnce() {
+        viewer.cameraOrbit = cameraOrbit;
+        viewer.fieldOfView = fieldOfView;
+        viewer.removeEventListener('load', restoreCameraOnce); // Nur einmal
+      });
+
+      // Modellquelle umschalten
       viewer.src = isModelA ? modelB : modelA;
       isModelA = !isModelA;
     }
