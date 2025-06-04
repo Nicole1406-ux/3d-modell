@@ -11,6 +11,7 @@
       height: 100%;
       width: 100%;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
     }
@@ -19,10 +20,18 @@
       width: 80vw;
       height: 80vh;
     }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <model-viewer
+    id="viewer"
     src="plane.glb"
     ar
     ar-modes="webxr scene-viewer quick-look"
@@ -30,10 +39,29 @@
     tone-mapping="neutral"
     poster="poster.webp"
     shadow-intensity="1"
+    exposure="1"
   >
     <div class="progress-bar hide" slot="progress-bar">
       <div class="update-bar"></div>
     </div>
   </model-viewer>
+
+  <button onclick="switchModel()">Modell wechseln</button>
+
+  <!-- Optional: preload second model -->
+  <link rel="preload" href="plane_300.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
+
+  <script>
+    const viewer = document.getElementById('viewer');
+    const modelA = 'plane.glb';
+    const modelB = 'plane_300.glb';
+
+    let isModelA = true;
+
+    function switchModel() {
+      viewer.src = isModelA ? modelB : modelA;
+      isModelA = !isModelA;
+    }
+  </script>
 </body>
 </html>
