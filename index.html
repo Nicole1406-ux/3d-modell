@@ -40,6 +40,8 @@
     poster="poster.webp"
     shadow-intensity="1"
     exposure="1"
+    bounds="manual"
+    auto-rotate
   >
     <div class="progress-bar hide" slot="progress-bar">
       <div class="update-bar"></div>
@@ -48,7 +50,7 @@
 
   <button onclick="switchModel()">Modell wechseln</button>
 
-  <!-- Preload second model -->
+  <!-- Preload the second model -->
   <link rel="preload" href="plane_300.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
 
   <script>
@@ -58,18 +60,18 @@
     let isModelA = true;
 
     function switchModel() {
-      // Aktuelle Kameraeinstellungen speichern
-      const cameraOrbit = viewer.getCameraOrbit();
-      const fieldOfView = viewer.getFieldOfView();
+      // Kameraeinstellungen vor dem Modellwechsel speichern
+      const orbit = viewer.getCameraOrbit();
+      const fov = viewer.getFieldOfView();
 
-      // Nach dem Laden des neuen Modells Kamera zurücksetzen
-      viewer.addEventListener('load', function restoreCameraOnce() {
-        viewer.cameraOrbit = cameraOrbit;
-        viewer.fieldOfView = fieldOfView;
-        viewer.removeEventListener('load', restoreCameraOnce); // Nur einmal
+      // Wenn das neue Modell geladen ist, Kamera wiederherstellen
+      viewer.addEventListener('load', function onceLoaded() {
+        viewer.cameraOrbit = orbit;
+        viewer.fieldOfView = fov;
+        viewer.removeEventListener('load', onceLoaded);
       });
 
-      // Modellquelle umschalten
+      // Modell wechseln
       viewer.src = isModelA ? modelB : modelA;
       isModelA = !isModelA;
     }
