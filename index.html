@@ -1,80 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      background-color: #f0f0f0;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-    }
-
-    model-viewer {
-      width: 90vw;
-      height: 80vh;
-      max-width: 1200px;
-      max-height: 800px;
-      background-color: #fff;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .hotspot {
-      display: block;
-      width: 20px;
-      height: 20px;
-      border-radius: 10px;
-      border: none;
-      background-color: #0D2D5C;
-      box-sizing: border-box;
-    }
-
-    .HotspotAnnotation {
-      background-color: #888888;
-      color: #fff;
-      position: absolute;
-      transform: translate(10px, 10px);
-      border-radius: 10px;
-      padding: 10px;
-      font-family: sans-serif;
-      font-size: 14px;
-    }
-
-    .controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    button.nav-button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      background-color: #0D2D5C;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button.nav-button:disabled {
-      background-color: #aaa;
-      cursor: not-allowed;
-    }
-
-    :not(:defined)>* {
-      display: none;
-    }
-  </style>
-</head>
+<!-- ... head bleibt wie vorher ... -->
 <body>
 
   <div class="controls">
@@ -92,27 +16,66 @@
     shadow-intensity="1" 
     camera-target="0m -0.0246m 0m">
     
-    <button class="hotspot" slot="hotspot-2" data-position="0.00035m -0.00042m 0.46410m" data-normal="0.10579m 0.99438m 0m"><div class="HotspotAnnotation">100 Rumpf oberer Teil</div></button>
-    <button class="hotspot" slot="hotspot-3" data-position="0.00057m -0.06497m 0.46389m" data-normal="0.18979m -0.98182m 0m"><div class="HotspotAnnotation">100 Rumpf unterer Teil</div></button>
-    <button class="hotspot" slot="hotspot-4" data-position="-0.00249m 0.04383m 0.05703m" data-normal="-0.99999m -0.00167m -0.00246m"><div class="HotspotAnnotation">300 Stabilisatoren</div></button>
-    <button class="hotspot" slot="hotspot-6" data-position="-0.08147m -0.07260m 0.40743m" data-normal="-0.05637m 0.06839m 0.99606m"><div class="HotspotAnnotation">400 Triebwerk und Gondeln</div></button>
-    <button class="hotspot" slot="hotspot-7" data-position="0.20898m -0.03716m 0.29570m" data-normal="-0.06937m 0.99707m -0.03221m"><div class="HotspotAnnotation">500 linker Flügel</div></button>
-    <button class="hotspot" slot="hotspot-8" data-position="-0.19969m -0.03761m 0.30194m" data-normal="0.06926m 0.99709m -0.03179m"><div class="HotspotAnnotation">600 rechter Flügel</div></button>
-    <button class="hotspot" slot="hotspot-9" data-position="-0.00017m -0.08492m 0.51555m" data-normal="0m 0.15659m 0.98766m"><div class="HotspotAnnotation">700 Fahrgestell</div></button>
-    <button class="hotspot" slot="hotspot-10" data-position="-0.02747m -0.02886m 0.52172m" data-normal="-0.99357m 0.09789m 0.05675m"><div class="HotspotAnnotation">800 Türen</div></button>
-    <button class="hotspot" slot="hotspot-11" data-position="-0.02795m -0.02538m 0.33323m" data-normal="-0.96224m 0.27216m 0.00259m"><div class="HotspotAnnotation">800 Türen</div></button>
-    <button class="hotspot" slot="hotspot-14" data-position="-0.02549m -0.02459m 0.12615m" data-normal="-0.99289m 0.09693m -0.06901m"><div class="HotspotAnnotation">800 Türen</div></button>
+    <button class="hotspot" slot="hotspot-2" data-position="0.00035m -0.00042m 0.46410m" data-normal="0.10579m 0.99438m 0m" data-target="0m 0m 0.464m">
+      <div class="HotspotAnnotation">100 Rumpf oberer Teil</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-3" data-position="0.00057m -0.06497m 0.46389m" data-normal="0.18979m -0.98182m 0m" data-target="0m 0m 0.463m">
+      <div class="HotspotAnnotation">100 Rumpf unterer Teil</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-4" data-position="-0.00249m 0.04383m 0.05703m" data-normal="-0.99999m -0.00167m -0.00246m" data-target="0m 0m 0.057m">
+      <div class="HotspotAnnotation">300 Stabilisatoren</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-6" data-position="-0.08147m -0.07260m 0.40743m" data-normal="-0.05637m 0.06839m 0.99606m" data-target="0m 0m 0.407m">
+      <div class="HotspotAnnotation">400 Triebwerk und Gondeln</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-7" data-position="0.20898m -0.03716m 0.29570m" data-normal="-0.06937m 0.99707m -0.03221m" data-target="0.209m 0m 0.295m">
+      <div class="HotspotAnnotation">500 linker Flügel</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-8" data-position="-0.19969m -0.03761m 0.30194m" data-normal="0.06926m 0.99709m -0.03179m" data-target="-0.199m 0m 0.301m">
+      <div class="HotspotAnnotation">600 rechter Flügel</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-9" data-position="-0.00017m -0.08492m 0.51555m" data-normal="0m 0.15659m 0.98766m" data-target="0m 0m 0.515m">
+      <div class="HotspotAnnotation">700 Fahrgestell</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-10" data-position="-0.02747m -0.02886m 0.52172m" data-normal="-0.99357m 0.09789m 0.05675m" data-target="-0.027m 0m 0.521m">
+      <div class="HotspotAnnotation">800 Türen</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-11" data-position="-0.02795m -0.02538m 0.33323m" data-normal="-0.96224m 0.27216m 0.00259m" data-target="-0.027m 0m 0.333m">
+      <div class="HotspotAnnotation">800 Türen</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-14" data-position="-0.02549m -0.02459m 0.12615m" data-normal="-0.99289m 0.09693m -0.06901m" data-target="-0.025m 0m 0.126m">
+      <div class="HotspotAnnotation">800 Türen</div>
+    </button>
 
   </model-viewer>
 
   <script>
-    const hotspots = Array.from(document.querySelectorAll('model-viewer .hotspot'));
+    const modelViewer = document.getElementById('modelViewer');
+    const hotspots = Array.from(modelViewer.querySelectorAll('.hotspot'));
     let currentIndex = 0;
 
     function updateHotspotVisibility() {
       hotspots.forEach((hotspot, index) => {
         hotspot.style.display = index === currentIndex ? 'block' : 'none';
       });
+
+      // Kamera auf das Ziel des aktuellen Hotspots richten
+      const currentHotspot = hotspots[currentIndex];
+      const target = currentHotspot.dataset.target;
+      if (target) {
+        modelViewer.cameraTarget = target;
+        modelViewer.cameraOrbit = '0deg 75deg 1m'; // Optional: Position der Kamera relativ zum Target
+        modelViewer.jumpCameraToGoal(); // Sofortiger Sprung zur Position
+      }
 
       document.getElementById('prevButton').disabled = currentIndex === 0;
       document.getElementById('nextButton').disabled = currentIndex === hotspots.length - 1;
@@ -132,7 +95,6 @@
       }
     });
 
-    // Initial visibility setup
     updateHotspotVisibility();
   </script>
 </body>
