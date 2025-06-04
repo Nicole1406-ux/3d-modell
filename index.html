@@ -4,33 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    model-viewer {
-      width: 80vw;
-      height: 80vh;
-    }
-
-    button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-  </style>
+  
 </head>
 <body>
-  <<model-viewer src="plane_300.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1">
+ <model-viewer src="plane_300.glb" ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" camera-target="0m -0.0246m 0m">
     <button class="Hotspot" slot="hotspot-2" data-position="0.00034923636303218087m -0.00041633005913708024m 0.4641032426455977m" data-normal="0.10579658218703929m 0.9943877931659968m 0m" data-visibility-attribute="visible">
         <div class="HotspotAnnotation">100 Rumpf oberer Teil</div>
     </button><button class="Hotspot" slot="hotspot-3" data-position="0.0005735390417947404m -0.06497384962800493m 0.46389396493422735m" data-normal="0.18979565822946673m -0.9818236135463659m -3.469446951953614e-18m" data-visibility-attribute="visible">
@@ -52,49 +29,8 @@
     </button><button class="Hotspot" slot="hotspot-14" data-position="-0.02549253325746475m -0.0245951819401127m 0.12615797092247535m" data-normal="-0.9928947241603017m 0.09693465079883291m -0.06901985373170982m" data-visibility-attribute="visible">
         <div class="HotspotAnnotation">800 Türen</div>
     </button>
-    <div class="progress-bar hide" slot="progress-bar">
-        <div class="update-bar"></div>
-    </div>
-    <button slot="ar-button" id="ar-button">
-        View in your space
-    </button>
-    <div id="ar-prompt">
-        <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
-    </div>
 </model-viewer>
 
-    <div class="progress-bar hide" slot="progress-bar">
-      <div class="update-bar"></div>
-    </div>
-  </model-viewer>
 
-  <button onclick="switchModel()">Modell wechseln</button>
-
-  <!-- Preload second model -->
-  <link rel="preload" href="plane_300.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
-
-  <script>
-    const viewer = document.getElementById('viewer');
-    const modelA = 'plane.glb';
-    const modelB = 'plane_300.glb';
-    let isModelA = true;
-
-    function switchModel() {
-      // Aktuelle Kameraeinstellungen speichern
-      const cameraOrbit = viewer.getCameraOrbit();
-      const fieldOfView = viewer.getFieldOfView();
-
-      // Nach dem Laden des neuen Modells Kamera zurücksetzen
-      viewer.addEventListener('load', function restoreCameraOnce() {
-        viewer.cameraOrbit = cameraOrbit;
-        viewer.fieldOfView = fieldOfView;
-        viewer.removeEventListener('load', restoreCameraOnce); // Nur einmal
-      });
-
-      // Modellquelle umschalten
-      viewer.src = isModelA ? modelB : modelA;
-      isModelA = !isModelA;
-    }
-  </script>
 </body>
 </html>
