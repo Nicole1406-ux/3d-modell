@@ -32,41 +32,46 @@
 <body>
   <model-viewer
     id="viewer"
-    camera-controls
-    tone-mapping="neutral"
-    shadow-intensity="1"
-    exposure="1"
+    src="plane.glb"
     ar
     ar-modes="webxr scene-viewer quick-look"
-    environment-image="neutral"
+    camera-controls
+    tone-mapping="neutral"
+    poster="poster.webp"
+    shadow-intensity="1"
+    exposure="1"
   >
-    <!-- Hauptmodell -->
-    <model id="model1" src="plane.glb"></model>
-    <model id="model2" src="plane_300.glb" visible="false"></model>
+    <div class="progress-bar hide" slot="progress-bar">
+      <div class="update-bar"></div>
+    </div>
   </model-viewer>
 
   <button onclick="switchModel()">Modell wechseln</button>
 
+  <!-- Preload second model -->
+  <link rel="preload" href="plane_300.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
+
   <script>
     const viewer = document.getElementById('viewer');
-    let currentModel = 1;
+    const modelA = 'plane.glb';
+    const modelB = 'plane_300.glb';
+    let isModelA = true;
 
-    async function switchModel() {
-      await viewer.updateComplete; // sicherstellen, dass alles geladen ist
+    function switchModel() {
+      // Aktuelle Kameraeinstellungen speichern
+      const cameraOrbit = viewer.getCameraOrbit();
+      const fieldOfView = viewer.getFieldOfView();
 
-      const scene = viewer.scene;
-      const model1 = scene.getModelById('model1');
-      const model2 = scene.getModelById('model2');
+      // Nach dem Laden des neuen Modells Kamera zurücksetzen
+      viewer.addEventListener('load', function restoreCameraOnce() {
+        viewer.cameraOrbit = cameraOrbit;
+        viewer.fieldOfView = fieldOfView;
+        viewer.removeEventListener('load', restoreCameraOnce); // Nur einmal
+      });
 
-      if (currentModel === 1) {
-        model1.visible = false;
-        model2.visible = true;
-        currentModel = 2;
-      } else {
-        model1.visible = true;
-        model2.visible = false;
-        currentModel = 1;
-      }
+      // Modellquelle umschalten
+      viewer.src = isModelA ? modelB : modelA;
+      isModelA = !isModelA;
     }
   </script>
 </body>
