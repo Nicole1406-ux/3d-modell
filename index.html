@@ -20,13 +20,10 @@
       background-color: #fff;
     }
     model-viewer {
-      flex: 1 1 auto; /* nimmt den ganzen verfügbaren Platz ein */
+      flex: 1 1 auto;
       width: 100vw;
       height: 100vh;
       background-color: #fff;
-      /* keine max-width/max-height mehr, Vollbild */
-      border-radius: 0;
-      box-shadow: none;
     }
     .hotspot {
       display: none;
@@ -34,7 +31,7 @@
       height: 20px;
       border-radius: 10px;
       border: none;
-      background-color: #0D2D5C;
+      background-color: #EF7100;
       box-sizing: border-box;
       pointer-events: none;
     }
@@ -56,13 +53,14 @@
       background-color: rgba(15, 15, 15, 0.8);
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
       padding: 10px 0;
       z-index: 100;
     }
     button.nav-btn {
-      margin: 0 15px;
-      padding: 12px 25px;
-      font-size: 18px;
+      padding: 12px 20px;
+      font-size: 16px;
       border: none;
       border-radius: 8px;
       background-color: #0D2D5C;
@@ -73,107 +71,144 @@
     button.nav-btn:hover:not(:disabled) {
       background-color: #154a9c;
     }
-    button.nav-btn:disabled {
-      background-color: #666666;
-      cursor: default;
-    }
     :not(:defined) > * {
       display: none;
     }
   </style>
 </head>
 <body>
+    <button onclick="sendeAnStoryline()">Klick mich</button>
+
   <model-viewer 
     id="viewer"
     src="plane_blue.glb" 
-    ar 
-    ar-modes="scene-viewer webxr quick-look" 
     camera-controls 
     tone-mapping="neutral" 
-    shadow-intensity="1" >
-    <!-- Hotspots mit Kamera-Orbit & Kamera-Target -->
-    <button class="hotspot" slot="hotspot-2" data-position="0.00035m -0.00042m 0.46410m" data-normal="0.10579m 0.99438m 0m"
+    interaction-prompt="none"
+    shadow-intensity="1">
+    
+    <!-- Hotspots -->
+    <button class="hotspot" slot="hotspot-1" data-group="rumpf"
+      data-position="0.00035m -0.00042m 0.46410m" data-normal="0.10579m 0.99438m 0m"
       data-orbit="00deg 80deg 0.8m" data-target="0m 0m 0.4m">
       <div class="HotspotAnnotation">100 Rumpf oberer Teil</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-3" data-position="0.00057m -0.06497m 0.46389m" data-normal="0.18979m -0.98182m 0m"
-     data-orbit="-90deg 120deg 0.8m" data-target="0m 0m 0.4m">
-      <div class="HotspotAnnotation">100 Rumpf unterer Teil</div>
+    <button class="hotspot" slot="hotspot-2" data-group="rumpf"
+      data-position="0.00057m -0.06497m 0.46389m" data-normal="0.18979m -0.98182m 0m"
+      data-orbit="-90deg 120deg 0.8m" data-target="0m 0m 0.4m">
+      <div class="HotspotAnnotation">200 Rumpf unterer Teil</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-4" data-position="-0.00249m 0.04383m 0.05703m" data-normal="-0.99999m -0.00167m -0.00246m"
+    <button class="hotspot" slot="hotspot-3" data-group="stabilisatoren"
+      data-position="-0.00249m 0.04383m 0.05703m" data-normal="-0.99999m -0.00167m -0.00246m"
       data-orbit="-30deg 80deg 0m" data-target="0.15m 0m 0m">
       <div class="HotspotAnnotation">300 Stabilisatoren</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-6" data-position="-0.08147m -0.07260m 0.40743m" data-normal="-0.05637m 0.06839m 0.99606m"
+    <button class="hotspot" slot="hotspot-4" data-group="triebwerk"
+      data-position="-0.08147m -0.07260m 0.40743m" data-normal="-0.05637m 0.06839m 0.99606m"
       data-orbit="-20deg 110deg 0m" data-target="0m 0.02m 0.3m">
       <div class="HotspotAnnotation">400 Triebwerk und Gondeln</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-7" data-position="0.20898m -0.03716m 0.29570m" data-normal="-0.06937m 0.99707m -0.03221m"
+    <button class="hotspot" slot="hotspot-5" data-group="fluegel"
+      data-position="0.20898m -0.03716m 0.29570m" data-normal="-0.06937m 0.99707m -0.03221m"
       data-orbit="70deg 70deg 1.9m" data-target="0.2m 0m 0.2m">
       <div class="HotspotAnnotation">500 linker Flügel</div>
     </button>
 
-    <button class="hotspot" slot="hotspot-8" data-position="-0.19969m -0.03761m 0.30194m" data-normal="0.06926m 0.99709m -0.03179m"
+    <button class="hotspot" slot="hotspot-6" data-group="fluegel"
+      data-position="-0.19969m -0.03761m 0.30194m" data-normal="0.06926m 0.99709m -0.03179m"
       data-orbit="-70deg 70deg 1.9m" data-target="-0.2m 0m 0.2m">
       <div class="HotspotAnnotation">600 rechter Flügel</div>
     </button>
+
+    <button class="hotspot" slot="hotspot-7" data-group="fahrgestell"
+      data-position="0m -0.07m 0.52m" data-normal="10m 0m 0m"
+      data-orbit="70deg 70deg 10m" data-target="1m 0m 0.2m">
+      <div class="HotspotAnnotation">Fahrgestell</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-8" data-group="tueren"
+      data-position="0.02m -0.02m 0.523m" data-normal="10m 0m 0m"
+      data-orbit="70deg 70deg 10m" data-target="1m 0m 0.2m">
+      <div class="HotspotAnnotation">800 Türen</div>
+    </button>
+
+    <button class="hotspot" slot="hotspot-9" data-group="tueren"
+      data-position="0.02m -0.02m 0.33m" data-normal="10m 0m 0m"
+      data-orbit="70deg 70deg 10m" data-target="1m 0m 0.2m">
+      <div class="HotspotAnnotation">800 Türen</div>
+    </button>
+    
+    <button class="hotspot" slot="hotspot-10" data-group="tueren"
+      data-position="0.02m -0.02m 0.125m" data-normal="10m 0m 0m"
+      data-orbit="70deg 70deg 10m" data-target="1m 0m 0.2m">
+      <div class="HotspotAnnotation">800 Türen</div>
+    </button>
+
   </model-viewer>
 
-  <div class="controls">
-    <button class="nav-btn" id="prev">Zurück</button>
-    <button class="nav-btn" id="next">Weiter</button>
-  </div>
+  <div class="controls" id="groupButtons"></div>
 
   <script>
     const modelViewer = document.querySelector('#viewer');
     const hotspots = Array.from(document.querySelectorAll('.hotspot'));
-    let currentIndex = 0;
 
-    function updateHotspotVisibility() {
-      hotspots.forEach((hotspot, index) => {
-        hotspot.style.display = (index === currentIndex) ? 'block' : 'none';
+    const hotspotGroups = [
+      { label: 'Rumpf', group: 'rumpf', orbit: "100deg 90deg 1m", target: "0m 0m 0.3m" },
+      { label: 'Stabilisatoren', group: 'stabilisatoren', orbit: "-30deg 80deg 0m", target: "0.15m 0m 0m" },
+      { label: 'Triebwerk', group: 'triebwerk', orbit: "-20deg 110deg 0m", target: "0m 0.02m 0.3m" },
+      { label: 'Flügel', group: 'fluegel', orbit: "0deg -300deg 3m", target: "0m 0.5m 0.3m" },
+      { label: 'Fahrgestell', group: 'fahrgestell', orbit: "0deg 100deg 1.2m", target: "0m 0.05m 0m" },
+      { label: 'Türen', group: 'tueren', orbit: "100deg 90deg 1m", target: "0m 0m 0.3m" }
+    ];
+
+    const groupButtonsContainer = document.getElementById('groupButtons');
+
+    function updateHotspotVisibility(groupName) {
+      hotspots.forEach(hotspot => {
+        hotspot.style.display = (hotspot.dataset.group === groupName) ? 'block' : 'none';
       });
-
-      document.getElementById('prev').disabled = currentIndex === 0;
-      document.getElementById('next').disabled = currentIndex === hotspots.length - 1;
     }
 
-    async function animateToHotspot(index) {
-      const hotspot = hotspots[index];
-      const orbit = hotspot.getAttribute('data-orbit');
-      const target = hotspot.getAttribute('data-target');
-
-      if (orbit && target) {
-        modelViewer.cameraOrbit = orbit;
-        modelViewer.cameraTarget = target;
-        await modelViewer.animateCameraToGoal();
-      }
+    async function animateToGroup(group) {
+      modelViewer.cameraOrbit = group.orbit;
+      modelViewer.cameraTarget = group.target;
+      await modelViewer.animateCameraToGoal();
     }
 
-    document.getElementById('prev').addEventListener('click', async () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateHotspotVisibility();
-        await animateToHotspot(currentIndex);
-      }
+    hotspotGroups.forEach(group => {
+      const button = document.createElement('button');
+      button.textContent = group.label;
+      button.className = 'nav-btn';
+      button.addEventListener('click', async () => {
+        updateHotspotVisibility(group.group);
+        await animateToGroup(group);
+      });
+      groupButtonsContainer.appendChild(button);
     });
 
-    document.getElementById('next').addEventListener('click', async () => {
-      if (currentIndex < hotspots.length - 1) {
-        currentIndex++;
-        updateHotspotVisibility();
-        await animateToHotspot(currentIndex);
-      }
-    });
+    // Initialanzeige
+    updateHotspotVisibility(hotspotGroups[0].group);
+    animateToGroup(hotspotGroups[0]);
+    
+    
+    
+      function sendeAnStoryline() {
+      try {
+        // Zugriff auf den Storyline-Player
+        var player = parent.GetPlayer();
 
-    // Initial anzeigen und Kamera animieren
-    updateHotspotVisibility();
-    animateToHotspot(currentIndex);
+        // Setze die Variable "ButtonGeklickt" auf true
+        player.SetVar("ButtonGeklickt", true);
+
+        alert("Variable wurde in Storyline gesetzt!");
+      } catch (e) {
+        alert("Fehler beim Zugriff auf Storyline: " + e);
+      }
+    }
   </script>
-
 </body>
 </html>
