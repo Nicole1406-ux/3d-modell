@@ -77,8 +77,6 @@
   </style>
 </head>
 <body>
-    <button onclick="sendeAnStoryline()">Klick mich</button>
-
   <model-viewer 
     id="viewer"
     src="plane_blue.glb" 
@@ -127,7 +125,7 @@
     <button class="hotspot" slot="hotspot-7" data-group="fahrgestell"
       data-position="0m -0.07m 0.52m" data-normal="10m 0m 0m"
       data-orbit="70deg 70deg 10m" data-target="1m 0m 0.2m">
-      <div class="HotspotAnnotation">Fahrgestell</div>
+      <div class="HotspotAnnotation">700 Fahrgestell</div>
     </button>
 
     <button class="hotspot" slot="hotspot-8" data-group="tueren"
@@ -193,22 +191,6 @@
     // Initialanzeige
     updateHotspotVisibility(hotspotGroups[0].group);
     animateToGroup(hotspotGroups[0]);
-    
-    
-    
-      function sendeAnStoryline() {
-      try {
-        // Zugriff auf den Storyline-Player
-        var player = parent.GetPlayer();
-
-        // Setze die Variable "ButtonGeklickt" auf true
-        player.SetVar("ButtonGeklickt", true);
-
-        alert("Variable wurde in Storyline gesetzt!");
-      } catch (e) {
-        alert("Fehler beim Zugriff auf Storyline: " + e);
-      }
-    }
   </script>
 </body>
 </html>
